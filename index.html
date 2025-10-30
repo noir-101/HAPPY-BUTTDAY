@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAPPY BUTTDAY OYEEEEEE </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      color: #333;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Welcome Page */
+    #welcome-page {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .blur-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.postimg.cc/BjDCfgYs/image.jpg') center/cover
+        no-repeat;
+      filter: blur(15px) brightness(0.6);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .landing-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 20px;
+    }
+
+    .landing-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .landing-content p {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      color: #f8f8f8;
+    }
+
+    #welcome-video {
+      width: 80%;
+      max-width: 700px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    }
+
+    .btn:hover {
+      background: #ff5252;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+    }
+
+    /* Slideshow Page - UP-DOWN SPLIT */
+    #slideshow-page {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+    }
+
+    .split-screen-container {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* Top Side - Photo Display (70%) */
+    .photo-side {
+      flex: 7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 1s ease;
+    }
+
+    .slide img {
+      max-width: 98%;
+      max-height: 98%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      image-rendering: auto;
+      image-rendering: crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    /* Bottom Side - Controls (30%) */
+    .controls-side {
+      flex: 3;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      gap: 30px;
+    }
+
+    /* Left side of controls - Music */
+    .music-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .album-cover {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 15px;
+      animation: rotate 15s linear infinite;
+      animation-play-state: paused;
+      border: 5px solid white;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .album-cover.playing {
+      animation-play-state: running;
+    }
+
+    .album-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .music-label {
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Middle of controls - Caption */
+    .caption-section {
+      flex: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .caption {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-size: 1.3rem;
+      line-height: 1.5;
+      max-width: 100%;
+    }
+
+    /* Right side of controls - Navigation */
+    .navigation-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .nav-btn {
+      background: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.1);
+      background: #fff5f5;
+    }
+
+    .slide-counter {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Final Page with Blurred Background */
+    #final-page {
+      display: none;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .final-blur-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.postimg.cc/BjDCfgYs/image.jpg') center/cover
+        no-repeat;
+      filter: blur(15px) brightness(0.6);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .final-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 20px;
+    }
+
+    .final-content h2 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .final-content p {
+      font-size: 1.4rem;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+      color: #f8f8f8;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive design for up-down layout */
+    @media (max-width: 768px) {
+      .controls-side {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px 20px;
+      }
+      
+      .music-section, .caption-section, .navigation-section {
+        flex: none;
+        width: 100%;
+      }
+      
+      .album-cover {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .caption {
+        font-size: 1.1rem;
+        padding: 15px;
+      }
+      
+      .nav-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+      }
+
+      .final-content h2 {
+        font-size: 2.5rem;
+      }
+
+      .final-content p {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .final-content h2 {
+        font-size: 2rem;
+      }
+
+      .final-content p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Welcome Page -->
+    <section id="welcome-page">
+      <div class="blur-bg"></div>
+      <div class="landing-content">
+        <h1>OYEEEEE HAPPY BUTTDAY OYEEEEEEE </h1>
+        <p>YOU ARE LWK THE COOLEST PERSON EVER </p>
+        <video id="welcome-video" controls>
+          <source src="./instructions.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <button class="btn" id="start-btn">Start the Journey</button>
+      </div>
+    </section>
+
+    <!-- Slideshow Page - UP-DOWN SPLIT -->
+    <section id="slideshow-page">
+      <div class="split-screen-container">
+        <!-- Top Side - Photos (70%) -->
+        <div class="photo-side"></div>
+
+        <!-- Bottom Side - Controls (30%) -->
+        <div class="controls-side">
+          <!-- Left - Music -->
+          <div class="music-section">
+            <div class="album-cover" id="album-cover">
+              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=500&q=60" alt="Album Cover" />
+            </div>
+            <div class="music-label">Click album to play/pause</div>
+            <div class="music-debug" id="music-debug" style="font-size: 0.8rem; color: #666; margin-top: 5px;"></div>
+          </div>
+
+          <!-- Middle - Caption -->
+          <div class="caption-section">
+            <div class="caption" id="current-caption">Caption will appear here</div>
+          </div>
+
+          <!-- Right - Navigation -->
+          <div class="navigation-section">
+            <div class="nav-buttons">
+              <button class="nav-btn prev">&#10094;</button>
+              <button class="nav-btn next">&#10095;</button>
+            </div>
+            <div class="slide-counter">1 / 15</div>
+            <button class="btn" id="final-btn">See Final Message</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final Page with Blurred Background -->
+    <section id="final-page">
+      <div class="final-blur-bg"></div>
+      <div class="final-content">
+        <h2>OYEHOYEEE THATS THE END 🤪 ( KHATAM ) ( NO LITERALLY KHATAM LMFAO IM SO FUNNY )</h2>
+        <p>I hope you have the most amazing day filled with masti and more masti and even more masti and all the things you love.</p>
+        <p>Thank you for being such an amazing part of my life, genuinely. You deserve all the happiness ever 💖</p>
+        <p>UR LITERALLY THE BEST EVER ILYSM MWAH 😝</p>
+        <button class="btn" id="restart-btn">Watch Again</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Hidden Audio Elements - One for each song -->
+  <div id="audio-container" style="display: none;">
+    <audio id="audio-0" preload="auto"><source src="./1.mp3" type="audio/mp3"></audio>
+    <audio id="audio-1" preload="auto"><source src="./2.mp3" type="audio/mp3"></audio>
+    <audio id="audio-2" preload="auto"><source src="./3.mp3" type="audio/mp3"></audio>
+    <audio id="audio-3" preload="auto"><source src="./4.mp3" type="audio/mp3"></audio>
+    <audio id="audio-4" preload="auto"><source src="./5.mp3" type="audio/mp3"></audio>
+    <audio id="audio-5" preload="auto"><source src="./6.mp3" type="audio/mp3"></audio>
+    <audio id="audio-6" preload="auto"><source src="./7.mp3" type="audio/mp3"></audio>
+    <audio id="audio-7" preload="auto"><source src="./8.mp3" type="audio/mp3"></audio>
+    <audio id="audio-8" preload="auto"><source src="./9.mp3" type="audio/mp3"></audio>
+    <audio id="audio-9" preload="auto"><source src="./11.mp3" type="audio/mp3"></audio> <!-- Swapped: Slide 10 gets 11.mp3 -->
+    <audio id="audio-10" preload="auto"><source src="./10.mp3" type="audio/mp3"></audio> <!-- Swapped: Slide 11 gets 10.mp3 -->
+    <audio id="audio-11" preload="auto"><source src="./12.mp3" type="audio/mp3"></audio>
+    <audio id="audio-12" preload="auto"><source src="./13.mp3" type="audio/mp3"></audio>
+    <audio id="audio-13" preload="auto"><source src="./14.mp3" type="audio/mp3"></audio>
+    <audio id="audio-14" preload="auto"><source src="./15.mp3" type="audio/mp3"></audio>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const welcomePage = document.getElementById('welcome-page');
+      const slideshowPage = document.getElementById('slideshow-page');
+      const finalPage = document.getElementById('final-page');
+      const startBtn = document.getElementById('start-btn');
+      const finalBtn = document.getElementById('final-btn');
+      const restartBtn = document.getElementById('restart-btn');
+      const photoSide = document.querySelector('.photo-side');
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
+      const slideCounter = document.querySelector('.slide-counter');
+      const captionElement = document.getElementById('current-caption');
+      const albumCover = document.getElementById('album-cover');
+      const musicDebug = document.getElementById('music-debug');
+
+      const photoUrls = [
+        'https://i.postimg.cc/BjDCfgYs/image.jpg',
+        'https://i.postimg.cc/Q9M5Ckbd/image.jpg',
+        'https://i.postimg.cc/CBMCDVF0/image.jpg',
+        'https://i.postimg.cc/jLnHycrc/image.jpg',
+        'https://i.postimg.cc/QHFb0scW/image.jpg',
+        'https://i.postimg.cc/N9QD4HxQ/image.jpg',
+        'https://i.postimg.cc/d7wGPKZG/image.jpg',
+        'https://i.postimg.cc/K4zr8FqW/image.jpg',
+        'https://i.postimg.cc/tZm6xZvp/image.png',
+        'https://i.postimg.cc/bD6x9FJR/image.jpg',
+        'https://i.postimg.cc/ygnPr8fJ/image.jpg',
+        'https://i.postimg.cc/w3G5tPnj/image.jpg',
+        'https://i.postimg.cc/mPQ75rk4/image.jpg',
+        'https://i.postimg.cc/TyVQg9gS/image.jpg',
+        'https://i.postimg.cc/sf6hKjF3/image.jpg'
+      ];
+
+      // Fixed chronological memory numbering
+      const captions = [
+        "I MISS 10TH SO MUCH AND THANK YOU SO MUCH FOR MAKING IT SUCH A GOOD MEMORY U WERE ON GOD THE BEST PART OF IT",
+        "OMG TOM HOLLAND AAGYA GUYS #realspideyfan",
+        "OYEHOYE SASSY SHAKUNI MAMA AHH BADDIE (I LOVE IT) (SORRRYYYYYY FOR SONG AHDIAGDIGFB😝) ",
+        "NO WAY U ARE SO COOL THANKYOU FOR MAKING ME LISTEN TO AM( U DIDNT ASK ME BUT I WOULDNT HAVE STARTED LISTENING TO THEM IF IT WASNT FOR U )", 
+        "NOOOOO DAKSHA NOOOOO DONT CRYYYY",
+        "AURA HAI GNG",
+        "SORYYYYYYYY AGAAAAAINNNNNN 😝",
+        "KYA HOGYA TELL TELL",
+        "i love our google meets so much mazzza hi aajata hai silly hoke without judgement😋",
+        "OYEHOYE KANHAIYA EYES",
+        "i genuinely appreciate u in my life so much TYSM FOR BEING MY FRIEND",
+        "WHY DO YOU HAVE THOSE AND I DONT THATS SO COOOOL I WANT IT SO BAD",
+        "SORRRYYYYYYYYY AGAIN FICGFYGWERGFGWFGYWAFBA 😝",
+        "THIS PHOTO IS SO ICONIC HOLY AURA ",
+        "DUYGADUYWGEUQGUWGDUYGCUAY SORRRRYRYRYRYRYYRYRYRYRY ( IM GASPING AS I TYPE THIS RN ) DONT BLOCK ME PLS QDEIGDWYFEGWUFYCFIYWIU AHAHAHAHHAAH 😝😝😝😝😝😝😝😝😝"
+      ];
+
+      // Create all 15 slides
+      for (let i = 0; i < photoUrls.length; i++) {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        if (i === 0) slide.classList.add('active');
+
+        const img = document.createElement('img');
+        img.src = photoUrls[i];
+        img.alt = `Memory ${i + 1}`;
+        img.loading = 'eager';
+        
+        img.onload = function() {
+          this.style.opacity = '1';
+        };
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.3s ease';
+        
+        slide.appendChild(img);
+        photoSide.appendChild(slide);
+      }
+
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      let currentAudio = null;
+      let isPlaying = false;
+      let autoPlayEnabled = true; // Auto-play is enabled by default
+
+      function updateUI() {
+        captionElement.textContent = captions[currentSlide];
+        slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+      }
+
+      function stopCurrentAudio() {
+        if (currentAudio && isPlaying) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+        isPlaying = false;
+        albumCover.classList.remove('playing');
+      }
+
+      function playCurrentAudio() {
+        if (!currentAudio || !autoPlayEnabled) return;
+
+        try {
+          currentAudio.play().then(() => {
+            albumCover.classList.add('playing');
+            musicDebug.textContent = `Song: ${currentSlide + 1} - Playing`;
+            isPlaying = true;
+          }).catch(error => {
+            console.error('Auto-play failed:', error);
+            musicDebug.textContent = `Song: ${currentSlide + 1} - Click to play`;
+            isPlaying = false;
+          });
+        } catch (error) {
+          console.error('Audio play failed:', error);
+          musicDebug.textContent = `Song: ${currentSlide + 1} - Play failed`;
+          isPlaying = false;
+        }
+      }
+
+      function showSlide(n) {
+        // Stop current audio
+        stopCurrentAudio();
+        
+        // Hide all slides first
+        slides.forEach(slide => slide.classList.remove('active'));
+        
+        // Show the new slide
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        
+        // Get the audio element for this slide
+        currentAudio = document.getElementById(`audio-${currentSlide}`);
+        
+        // Update debug info
+        if (currentAudio) {
+          musicDebug.textContent = `Song: ${currentSlide + 1} - Loading...`;
+          
+          // Add event listeners for this audio
+          currentAudio.onended = function() {
+            albumCover.classList.remove('playing');
+            musicDebug.textContent = `Song: ${currentSlide + 1} - Ended`;
+            isPlaying = false;
+          };
+          
+          currentAudio.onerror = function() {
+            musicDebug.textContent = `Song: ${currentSlide + 1} - Error loading`;
+          };
+
+          currentAudio.oncanplay = function() {
+            musicDebug.textContent = `Song: ${currentSlide + 1} - Ready`;
+            // Auto-play when audio is ready
+            playCurrentAudio();
+          };
+        } else {
+          musicDebug.textContent = `Song: ${currentSlide + 1} - Audio not found`;
+        }
+        
+        updateUI();
+      }
+
+      function toggleMusic() {
+        if (!currentAudio) {
+          musicDebug.textContent = `Song: ${currentSlide + 1} - No audio element`;
+          return;
+        }
+
+        try {
+          if (isPlaying) {
+            // Pause music
+            currentAudio.pause();
+            albumCover.classList.remove('playing');
+            musicDebug.textContent = `Song: ${currentSlide + 1} - Paused`;
+            isPlaying = false;
+            autoPlayEnabled = false; // User manually paused, disable auto-play
+          } else {
+            // Play music
+            currentAudio.play().then(() => {
+              albumCover.classList.add('playing');
+              musicDebug.textContent = `Song: ${currentSlide + 1} - Playing`;
+              isPlaying = true;
+              autoPlayEnabled = true; // User manually played, enable auto-play
+            }).catch(error => {
+              console.error('Play failed:', error);
+              musicDebug.textContent = `Song: ${currentSlide + 1} - Play failed`;
+            });
+          }
+        } catch (error) {
+          console.error('Audio play failed:', error);
+          musicDebug.textContent = `Song: ${currentSlide + 1} - Play failed`;
+          isPlaying = false;
+        }
+      }
+
+      // Event listeners
+      nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+      prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+      albumCover.addEventListener('click', toggleMusic);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (slideshowPage.style.display === 'block') {
+          if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+          if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+          if (e.key === ' ') {
+            toggleMusic();
+            e.preventDefault();
+          }
+        }
+      });
+
+      // Initialize first slide
+      updateUI();
+      currentAudio = document.getElementById('audio-0');
+      if (currentAudio) {
+        musicDebug.textContent = `Song: 1 - Loading...`;
+        // Auto-play first slide when ready
+        currentAudio.oncanplay = function() {
+          playCurrentAudio();
+        };
+      }
+
+      startBtn.addEventListener('click', () => {
+        welcomePage.style.display = 'none';
+        slideshowPage.style.display = 'block';
+        // Reset auto-play when starting
+        autoPlayEnabled = true;
+      });
+
+      finalBtn.addEventListener('click', () => {
+        slideshowPage.style.display = 'none';
+        finalPage.style.display = 'block';
+        // Stop music when going to final page
+        stopCurrentAudio();
+      });
+
+      restartBtn.addEventListener('click', () => {
+        finalPage.style.display = 'none';
+        welcomePage.style.display = 'block';
+        currentSlide = 0;
+        showSlide(0);
+        // Reset auto-play when restarting
+        autoPlayEnabled = true;
+      });
+    });
+  </script>
+</body>
+</html>
